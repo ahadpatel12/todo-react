@@ -1,39 +1,51 @@
-import { useEffect } from "react";
-import { toast } from "react-toastify";
+// import { useEffect } from "react";
+// import { toast } from "react-toastify";
+
+import usePost from "../hooks/usePost";
 
 export async function dashboardAction({ request }) {
   // await waait();
+  
 
-  const data = await request.formData();
-  const { _action, ...values } = Object.fromEntries(data);
-  console.log(_action);
+  const requestData = await request.formData();
+  console.log(requestData)
+  const { _action, ...values } = Object.fromEntries(requestData);
 
   // new user submission
+
   if (_action === "login") {
     try {
-      const promise = new Promise(async (resolve, reject) => {
-        try {
 
-          const data = await fetch('http://127.0.0.1:3000/login', {
-            method: 'post',
-            mode: 'no-cors',
-            headers: {
-              "Content-Type": "text/plain"
-            },
-            body: JSON.stringify({
-              email: values.email,
-              password: values.password
-            })
-          })
-          resolve(data)
-        } catch (e) {
-          reject(e)
-        }
-      });
+      // const promise = new Promise(async (resolve, reject) => {
+      //   try {
+      //     console.log(values);
+      //     const formData = new FormData(requestData);
 
-      promise.then((value) => {
-        console.log("Data", value)
-      })
+      //     console.log(formData)
+
+      //     const data = await fetch('http://127.0.0.1:3000/login', {
+      //       method: 'POST',
+      //       mode: 'no-cors',
+      //       headers: {
+      //         'Content-Type': 'application/json',
+      //         //   'Access-Control-Allow-Origin': '*',
+      //       },
+      //       body: JSON.stringify({
+      //         email: values.email,
+      //         password: values.password
+      //       })
+      //     })
+
+      //     resolve(data)
+      //   } catch (e) {
+      //     console.log("error", e)
+      //     reject(e)
+      //   }
+      // });
+
+      // promise.then((value) => {
+      //   console.log("Data", value)
+      // })
 
       // const data = fetch('http://192.168.29.19:3000/login', {
       //   method: 'post',

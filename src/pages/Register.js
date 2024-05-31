@@ -1,11 +1,14 @@
-import { Form } from "react-router-dom"
-
+import { Form, useNavigate } from "react-router-dom"
 // library
-import { UserIcon } from "@heroicons/react/24/solid"
-// assets
-// import illustration from "../assets/illustration.jpg"
+import { UserPlusIcon } from "@heroicons/react/24/solid"
 
-export default function Register({ toggleValue }) {
+export default function Register() {
+  const navigate = useNavigate()
+
+  const handleNavCLick = () => {
+    navigate('/login');
+  };
+
   return (
     <div className="intro">
       <div>
@@ -44,11 +47,11 @@ export default function Register({ toggleValue }) {
           <input type="hidden" name="_action" value="register" />
           <button type="submit" className="btn btn--dark">
             <span>Register</span>
-            <UserIcon width={20} />
+            <UserPlusIcon width={20} />
           </button>
         </Form>
         <p>
-          Already have an account <span className="accent" style={{ cursor: "pointer" }} onClick={toggleValue}> Login </span> Now
+          Already have an account <span className="accent" style={{ cursor: "pointer" }} onClick={handleNavCLick}> Login </span> Now
         </p>
       </div>
     </div>

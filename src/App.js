@@ -6,7 +6,11 @@ import { mainLoader } from './loaders/mainLoader';
 import Error from './pages/Error';
 import Dashborard from './pages/Dashboard';
 import { dashboardLoader } from './loaders/dashboardLoader';
-import { dashboardAction } from './actions/dashboardAction';
+// import { dashboardAction } from './actions/dashboardAction';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import { ToastContainer } from 'react-toastify';
+import { loginAction } from './actions/loginAction';
 
 // export const todoChannel = consumer.subscriptions.create({
 //   channel: 'TodoChannel',
@@ -24,12 +28,29 @@ const router = createBrowserRouter([
     loader: mainLoader,
     errorElement: <Error />,
     children: [
+
+      {
+        // index: true,
+        path: "login",
+        action: loginAction,
+        element: <Login />,
+        errorElement: <Error />
+      },
+
       {
         index: true,
+        // path: "home",
         element: <Dashborard />,
         loader: dashboardLoader,
-        action: dashboardAction,
+        // action: dashboardAction,
         errorElement: <Error />,
+      },
+
+
+      {
+        path: "register",
+        element: <Register />,
+        errorElement: <Error />
       },
 
       // {
@@ -70,6 +91,7 @@ function App() {
   return (
     <div className="App">
       <RouterProvider router={router} />
+      <ToastContainer />
     </div>
   );
 }
