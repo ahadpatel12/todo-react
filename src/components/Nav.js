@@ -4,7 +4,8 @@ import { Form, NavLink } from "react-router-dom"
 // import { TrashIcon } from "@heroicons/react/16/solid";
 
 
-export default function Nav({ userName }) {
+export default function Nav({ user }) {
+  console.log("user", user)
   return (
     <nav>
       <NavLink
@@ -15,18 +16,18 @@ export default function Nav({ userName }) {
         <span>Todo</span>
       </NavLink>
       {
-        userName && (
+        user && (
           <Form
             method="post"
             action="/logout"
             onSubmit={(event) => {
-              if (!window.confirm("Delete user and all data?")) {
+              if (!window.confirm("Are you sure to Logout?")) {
                 event.preventDefault();
               }
             }}
           >
             <button type="submit" className="btn btn--warning">
-              <span>Delete User</span>
+              <span>Logout</span>
               {/* <TrashIcon width={20} /> */}
             </button>
           </Form>

@@ -5,10 +5,10 @@ import Nav from "../components/Nav";
 
 
 export default function Main() {
-  const { userName } = useLoaderData()
+  const { user } = useLoaderData()
   return (
     <div className="layout">
-      <Nav userName={userName} />
+      <Nav user={user} />
       <main>
         <Outlet />
       </main>

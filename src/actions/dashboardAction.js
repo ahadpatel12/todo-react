@@ -1,11 +1,10 @@
 // import { useEffect } from "react";
 // import { toast } from "react-toastify";
 
-import usePost from "../hooks/usePost";
 
 export async function dashboardAction({ request }) {
   // await waait();
-  
+
 
   const requestData = await request.formData();
   console.log(requestData)
@@ -13,9 +12,8 @@ export async function dashboardAction({ request }) {
 
   // new user submission
 
-  if (_action === "login") {
+  if (_action === "createTodo") {
     try {
-
       // const promise = new Promise(async (resolve, reject) => {
       //   try {
       //     console.log(values);

@@ -4,7 +4,7 @@ import axiosConfig from "../axios/axiosConfig";
 
 export async function loginAction({ request }) {
   // await waait();
-
+  console.log(request)
 
   const requestData = await request.formData();
   console.log("Request Data", requestData)
@@ -17,7 +17,7 @@ export async function loginAction({ request }) {
 
     localStorage.setItem("token", JSON.stringify(response.data.token))
     localStorage.setItem("user", JSON.stringify(response.data.user))
-    
+
     // return "data";
     // localStorage.setItem("userName", JSON.stringify(values.userName))
     // return toast.success(`Welcome ${values.userName}`)

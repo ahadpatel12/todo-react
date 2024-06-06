@@ -1,6 +1,7 @@
 import { fetchData } from "../helpers";
 
 export function mainLoader() {
-  const userName = fetchData('userName');
-  return { userName };
+  const user = fetchData('user');
+  console.log("User in main", user)
+  return { user };
 }

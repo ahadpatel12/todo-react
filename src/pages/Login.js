@@ -38,7 +38,6 @@ export default function Login() {
 				<fetcher.Form
 					ref={formRef}
 					method="post"
-					target="/"
 				>
 					<input
 						type="text"

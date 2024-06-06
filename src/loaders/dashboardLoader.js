@@ -3,6 +3,7 @@ import { fetchData } from "../helpers";
 
 export function dashboardLoader() {
 
-  const userName = fetchData('userName')
-  return { userName };
+  const user = fetchData('user')
+  const token = fetchData('token')
+  return { user,token };
 }

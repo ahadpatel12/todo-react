@@ -11,6 +11,9 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import { ToastContainer } from 'react-toastify';
 import { loginAction } from './actions/loginAction';
+import ProtectedRoute from './ProtectedRoute';
+import logoutAction from './actions/logoutAction';
+import { NotFound } from './pages/NotFound';
 
 // export const todoChannel = consumer.subscriptions.create({
 //   channel: 'TodoChannel',
@@ -36,21 +39,20 @@ const router = createBrowserRouter([
         element: <Login />,
         errorElement: <Error />
       },
-
       {
         index: true,
-        // path: "home",
-        element: <Dashborard />,
+        element: <ProtectedRoute component={<Dashborard />} />,
         loader: dashboardLoader,
-        // action: dashboardAction,
         errorElement: <Error />,
       },
-
-
       {
         path: "register",
         element: <Register />,
         errorElement: <Error />
+      },
+      {
+        path: 'logout',
+        action: logoutAction
       },
 
       // {
@@ -76,13 +78,14 @@ const router = createBrowserRouter([
       //   ],
 
       // },
-      // {
-      //   path: 'logout',
-      //   action: logoutAction
-      // },
+      {
+        path: '*',
+        element: <NotFound />
+      }
 
     ]
   },
+
 
 ])
 

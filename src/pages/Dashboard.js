@@ -2,18 +2,16 @@
 // import { useLoaderData } from "react-router-dom";
 // import Authentication from "./Authentication";
 
+import { AddTodoForm } from "../components/AddTodoForm";
+import { Todo } from "../components/Todo";
+
 export default function Dashborard() {
   // const { userName } = useLoaderData()
   return (
-    <>
-      <div>Dashboard</div>
-      {/* {userName ? (
-        <div className="dashboard">
-          <h1>Welcome back, <span className="accent">{userName}</span></h1>
-          <div className="grid-sm">
-          </div>
-        </div>
-      ) : <Authentication />} */}
-    </>
+    <div className="todo-container">
+      <AddTodoForm />
+      <h2>All Todos</h2>
+      <Todo />
+    </div>
   )
 }

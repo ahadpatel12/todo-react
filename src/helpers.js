@@ -9,7 +9,7 @@ export const waait = () => new Promise(res => setTimeout(res, Math.random() * 80
 
 // Local storage
 export const fetchData = (key) => {
-    return JSON.parse(localStorage.getItem(key));
+    return JSON.parse(window.localStorage.getItem(key));
 };
 
 // delete item
