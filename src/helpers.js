@@ -8,6 +8,11 @@ export const waait = () => new Promise(res => setTimeout(res, Math.random() * 80
 
 
 // Local storage
+
+export const storeData = (key, value) => {
+    return localStorage.setItem(key, JSON.stringify(value))
+}
+
 export const fetchData = (key) => {
     return JSON.parse(window.localStorage.getItem(key));
 };

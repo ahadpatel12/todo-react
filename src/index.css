@@ -340,6 +340,8 @@ input,
 select {
   width: 100%;
   font: inherit;
+  padding-bottom: 0;
+  margin-bottom: 0;
   font-size: var(--fs-300);
   background-color: hsl(var(--bkg));
   border: 2px solid hsl(var(--muted));
@@ -390,6 +392,10 @@ select {
   display: grid;
   gap: var(--space-sm);
   max-width: var(--content-sm);
+}
+
+.intro .info-input {
+  gap: 0;
 }
 
 .intro form {
@@ -696,4 +702,13 @@ table a {
 .todo-form-container .todo-timer {
   display: flex;
   gap: 20px;
+}
+
+input~p {
+  margin-top: 0px;
+  padding-top: 0px;
+  font-size: medium;
+  text-align: start;
+  /* font-weight: 100; */
+  color: red;
 }

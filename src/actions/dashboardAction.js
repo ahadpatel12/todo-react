@@ -59,6 +59,7 @@ export async function dashboardAction({ request }) {
       // return toast.success(`Welcome ${values.userName}`)
 
     } catch (e) {
+      
       throw new Error("There was a problem creating your account");
     }
   }

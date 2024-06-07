@@ -1,18 +1,19 @@
 // assts
 import { Form, NavLink } from "react-router-dom"
-// import logomark from "../assets/logomark.svg"
-// import { TrashIcon } from "@heroicons/react/16/solid";
+import { fetchData } from "../helpers";
+import { TrashIcon } from "@heroicons/react/16/solid";
 
 
-export default function Nav({ user }) {
-  console.log("user", user)
+export default function Nav() {
+
+  const user = fetchData('user')
+  console.log("user from nav", user)
   return (
     <nav>
       <NavLink
         to="/"
         aria-label="Go to home"
       >
-        {/* <img src={logomark} alt="" height={30} /> */}
         <span>Todo</span>
       </NavLink>
       {
@@ -28,7 +29,7 @@ export default function Nav({ user }) {
           >
             <button type="submit" className="btn btn--warning">
               <span>Logout</span>
-              {/* <TrashIcon width={20} /> */}
+              <TrashIcon width={20} />
             </button>
           </Form>
         )

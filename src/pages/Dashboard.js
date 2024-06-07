@@ -6,7 +6,7 @@ import { AddTodoForm } from "../components/AddTodoForm";
 import { Todo } from "../components/Todo";
 
 export default function Dashborard() {
-  // const { userName } = useLoaderData()
+
   return (
     <div className="todo-container">
       <AddTodoForm />

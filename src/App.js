@@ -1,4 +1,6 @@
 import './App.css';
+import 'react-toastify/dist/ReactToastify.css';
+
 // import consumer from './cable';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Main from './layouts/main';
@@ -14,6 +16,7 @@ import { loginAction } from './actions/loginAction';
 import ProtectedRoute from './ProtectedRoute';
 import logoutAction from './actions/logoutAction';
 import { NotFound } from './pages/NotFound';
+import registerAction from './actions/registerAction';
 
 // export const todoChannel = consumer.subscriptions.create({
 //   channel: 'TodoChannel',
@@ -31,19 +34,17 @@ const router = createBrowserRouter([
     loader: mainLoader,
     errorElement: <Error />,
     children: [
-
       {
-        // index: true,
+        index: true,
+        element: <ProtectedRoute component={<Dashborard />} />,
+        // loader: dashboardLoader,
+        errorElement: <Error />,
+      },
+      {
         path: "login",
         action: loginAction,
         element: <Login />,
         errorElement: <Error />
-      },
-      {
-        index: true,
-        element: <ProtectedRoute component={<Dashborard />} />,
-        loader: dashboardLoader,
-        errorElement: <Error />,
       },
       {
         path: "register",
@@ -54,30 +55,6 @@ const router = createBrowserRouter([
         path: 'logout',
         action: logoutAction
       },
-
-      // {
-      //   path: 'expenses',
-      //   element: <ExpensesPage />,
-      //   errorElement: <Error />,
-      //   loader: expenseLoader,
-      //   action: expensesAction
-      // },
-
-      // {
-      //   path: 'budget/:id',
-      //   element: <BudgetPage />,
-      //   errorElement: <Error />,
-      //   loader: budgetLoader,
-      //   action: budgetAction,
-      //   children: [
-      //     {
-      //       path: "delete",
-      //       action: deleteBudget,
-
-      //     }
-      //   ],
-
-      // },
       {
         path: '*',
         element: <NotFound />

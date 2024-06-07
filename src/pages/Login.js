@@ -1,30 +1,54 @@
-// import { Form } from "react-router-dom"
 
 // library
 import { UserIcon } from "@heroicons/react/24/solid"
-import { useEffect, useRef } from "react";
-import { useFetcher, useNavigate } from "react-router-dom";
-// import usePost from "../hooks/usePost";
-// import { useCallback } from "react";
-// assets
-// import illustration from "../assets/illustration.jpg"
+import { useCallback, useRef } from "react";
+import { Form, redirect, useNavigate } from "react-router-dom";
+import axiosConfig from "../axios/axiosConfig";
+import { toast } from "react-toastify";
+import { storeData } from "../helpers";
+import { useForm } from "react-hook-form";
+import { emailValidation, passwordValidation } from "../helpers/validation";
 
 export default function Login() {
+
+	const {
+		register,
+		handleSubmit,
+		watch,
+		formState: { errors },
+	} = useForm();
+
+
+
 	const navigate = useNavigate()
-	const fetcher = useFetcher()
-	const isSubmitting = fetcher.state === "submitting";
 
-	const formRef = useRef();
 
-	useEffect(() => {
-		if (!isSubmitting) {
-			formRef.current.reset()
-		}
-	}, [isSubmitting])
-
-	const handleNavCLick = () => {
+	const handleNavCLick = useCallback(() => {
 		navigate('/register');
-	}
+	}, []);
+
+	const handleLogin = useCallback(async (event) => {
+		event.preventDefault();
+		var data = new FormData(event.target);
+		let formObject = Object.fromEntries(data.entries());
+
+		// user login
+		try {
+			const response = await axiosConfig.post('/login', formObject);
+			if (response.status === 200) {
+				console.log("data", response.data);
+				storeData('user', response.data.user);
+				storeData('token', response.data.token);
+				toast.success(`Welcome User ${response.data.user.email}`)
+				return navigate('/', { state: { user: response.data.user } });
+			}
+
+			toast.error(`Login Failed ${response.data}`)
+
+		} catch (e) {
+			toast.error(`Login fail - ${e?.response?.data?.error}`)
+		}
+	}, [])
 
 	return (
 		<div className="intro">
@@ -35,34 +59,40 @@ export default function Login() {
 				<p>
 					Welcome to the modern <span className="accent"> ToDo </span> app
 				</p>
-				<fetcher.Form
-					ref={formRef}
+				<Form
 					method="post"
+					onSubmit={handleLogin}
 				>
-					<input
-						type="text"
-						name="email"
-						required
-						placeholder="example@test.com"
-						aria-label="Your Name"
-						autoComplete="given-name"
-					/>
-					<input
-						type={
-							"password"
-						}
-						name="password"
-						required
-						placeholder="******"
-						aria-label="Password"
-						autoComplete="current-password"
-					/>
-					{/* <input type="hidden" name="_action" value="login" /> */}
+					<div className="info-input">
+						<input
+							type="text"
+							name="email"
+							required
+							placeholder="example@test.com"
+							aria-label="Your email"
+							autoComplete="given-email"
+							{...emailValidation(register)}
+						/>
+						{errors.email && <p>{errors.email.message || "Email is required"}</p>}
+					</div>
+					<div className="info-input">
+						<input
+							type="password"
+							name="password"
+							required
+							placeholder="******"
+							aria-label="Password"
+							autoComplete="current-password"
+							{...passwordValidation(register)}
+						/>
+						{errors.password && <p>{errors.password.message || "Password is required"}</p>}
+
+					</div>
 					<button type="submit" className="btn btn--dark">
 						<span>Login</span>
 						<UserIcon width={20} />
 					</button>
-				</fetcher.Form>
+				</Form>
 				<p>
 					Don't have an account <span className="accent" style={{ cursor: "pointer" }} onClick={handleNavCLick}>  Register </span>  Now
 				</p>

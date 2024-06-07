@@ -1,13 +1,32 @@
-import { Form, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 // library
 import { UserPlusIcon } from "@heroicons/react/24/solid"
+import { useCallback } from "react";
+import { useForm } from "react-hook-form";
+import { confirmPasswordValidation, emailValidation, passwordValidation } from "../helpers/validation";
 
 export default function Register() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+
   const navigate = useNavigate()
 
   const handleNavCLick = () => {
     navigate('/login');
   };
+
+  const handleOnSubmit = useCallback((event) => {
+    console.log("event", event)
+    // event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData)
+    console.log("RegisterData", data)
+  }, []);
 
   return (
     <div className="intro">
@@ -18,38 +37,49 @@ export default function Register() {
         <p>
           Welcome to the modern <span className="accent"> ToDo </span> app
         </p>
-        <Form method="post">
-          <input
-            type="text"
-            name="email"
-            required
-            placeholder="example@test.com"
-            aria-label="Your Name"
-            autoComplete="given-name"
-          />
-          <input
-            type={
-              "password"
-            }
-            name="password"
-            required
-            placeholder="******"
-            aria-label="Password"
-            autoComplete="current-password"
-          />
-          <input
-            type="password"
-            name="confirm-password"
-            required
-            placeholder="******"
-            aria-label="Confirm Password"
-          />
-          <input type="hidden" name="_action" value="register" />
+        <form
+          method="post"
+          onSubmit={handleSubmit(handleOnSubmit)}
+        >
+          <div className="info-input">
+            <input
+              type="text"
+              name="email"
+              placeholder="example@test.com"
+              aria-label="Your Name"
+              autoComplete="new-email"
+              {...emailValidation(register)}
+            />
+            {errors.email && <p> {errors.email.message || "Email is required."} </p>}
+          </div>
+          <div className="info-input">
+            <input
+              type="password"
+              name="password"
+              placeholder="******"
+              aria-label="Password"
+              autoComplete="new-password"
+              {...passwordValidation(register)}
+            />
+            {errors.password && <p> {errors.password.message || "Password is required."}</p>}
+          </div>
+          <div className="info-input">
+            <input
+              type="password"
+              name="confirm-password"
+              required
+              placeholder="******"
+              aria-label="Confirm Password"
+              {...confirmPasswordValidation(register, watch)}
+            />
+            {errors.confirm_password && <p>{errors.confirm_password.message || "Confirm Password required"}</p>}
+          </div>
+
           <button type="submit" className="btn btn--dark">
             <span>Register</span>
             <UserPlusIcon width={20} />
           </button>
-        </Form>
+        </form>
         <p>
           Already have an account <span className="accent" style={{ cursor: "pointer" }} onClick={handleNavCLick}> Login </span> Now
         </p>
