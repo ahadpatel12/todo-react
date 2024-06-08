@@ -7,7 +7,6 @@ import { TrashIcon } from "@heroicons/react/16/solid";
 export default function Nav() {
 
   const user = fetchData('user')
-  console.log("user from nav", user)
   return (
     <nav>
       <NavLink
@@ -27,6 +26,8 @@ export default function Nav() {
               }
             }}
           >
+            <p>Id : {user.id}</p>
+            <p>User : {user.email}</p>
             <button type="submit" className="btn btn--warning">
               <span>Logout</span>
               <TrashIcon width={20} />

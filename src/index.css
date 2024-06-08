@@ -705,10 +705,8 @@ table a {
 }
 
 input~p {
-  margin-top: 0px;
-  padding-top: 0px;
-  font-size: medium;
+  padding-inline-start: 5px;
+  font-size: small;
   text-align: start;
-  /* font-weight: 100; */
   color: red;
 }

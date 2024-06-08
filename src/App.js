@@ -1,22 +1,28 @@
 import './App.css';
 import 'react-toastify/dist/ReactToastify.css';
-
-// import consumer from './cable';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import ProtectedRoute from './ProtectedRoute';
+import PublicRoute from './PublicRoutes';
+
+
+// layouts
 import Main from './layouts/main';
-import { mainLoader } from './loaders/mainLoader';
+
+// pages
 import Error from './pages/Error';
 import Dashborard from './pages/Dashboard';
-import { dashboardLoader } from './loaders/dashboardLoader';
-// import { dashboardAction } from './actions/dashboardAction';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { ToastContainer } from 'react-toastify';
-import { loginAction } from './actions/loginAction';
-import ProtectedRoute from './ProtectedRoute';
+import NotFound from './pages/NotFound';
+
+// loaders
+import { mainLoader } from './loaders/mainLoader';
+
+// actions
+import { dashboardAction } from './actions/dashboardAction';
 import logoutAction from './actions/logoutAction';
-import { NotFound } from './pages/NotFound';
-import registerAction from './actions/registerAction';
+
 
 // export const todoChannel = consumer.subscriptions.create({
 //   channel: 'TodoChannel',
@@ -38,17 +44,17 @@ const router = createBrowserRouter([
         index: true,
         element: <ProtectedRoute component={<Dashborard />} />,
         // loader: dashboardLoader,
+        action: dashboardAction,
         errorElement: <Error />,
       },
       {
         path: "login",
-        action: loginAction,
-        element: <Login />,
+        element: <PublicRoute component={<Login />} />,
         errorElement: <Error />
       },
       {
         path: "register",
-        element: <Register />,
+        element: <PublicRoute component={<Register />} />,
         errorElement: <Error />
       },
       {

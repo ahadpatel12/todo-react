@@ -1,8 +1,8 @@
 
 // library
 import { UserIcon } from "@heroicons/react/24/solid"
-import { useCallback, useRef } from "react";
-import { Form, redirect, useNavigate } from "react-router-dom";
+import { useCallback } from "react";
+import { Form, useNavigate } from "react-router-dom";
 import axiosConfig from "../axios/axiosConfig";
 import { toast } from "react-toastify";
 import { storeData } from "../helpers";
@@ -10,24 +10,18 @@ import { useForm } from "react-hook-form";
 import { emailValidation, passwordValidation } from "../helpers/validation";
 
 export default function Login() {
-
 	const {
 		register,
-		handleSubmit,
-		watch,
 		formState: { errors },
 	} = useForm();
-
-
-
 	const navigate = useNavigate()
 
 
-	const handleNavCLick = useCallback(() => {
+	const handleNavCLick = () => {
 		navigate('/register');
-	}, []);
+	};
 
-	const handleLogin = useCallback(async (event) => {
+	const handleLogin = async (event) => {
 		event.preventDefault();
 		var data = new FormData(event.target);
 		let formObject = Object.fromEntries(data.entries());
@@ -48,7 +42,7 @@ export default function Login() {
 		} catch (e) {
 			toast.error(`Login fail - ${e?.response?.data?.error}`)
 		}
-	}, [])
+	};
 
 	return (
 		<div className="intro">

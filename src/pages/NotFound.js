@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-export const NotFound = () => {
+export default function NotFound() {
   return (
     <div className='grid-lg'>
       <h2>Page not found</h2>

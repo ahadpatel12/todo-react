@@ -3,13 +3,14 @@ import { fetchData } from './helpers';
 
 export default function ProtectedRoute({ component }) {
   const token = fetchData('token');
-  let location = useLocation();
+  const location = useLocation();
 
-  console.log('token:', !token)
+  console.log('location:', location)
 
-  if (!token) {
+  if (!token ) {
     return <Navigate to="/login" state={{ from: location }} replace />
   }
+
   return component
 
 };

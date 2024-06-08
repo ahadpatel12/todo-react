@@ -4,6 +4,9 @@ import { UserPlusIcon } from "@heroicons/react/24/solid"
 import { useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { confirmPasswordValidation, emailValidation, passwordValidation } from "../helpers/validation";
+import { storeData } from "../helpers";
+import axiosConfig from "../axios/axiosConfig";
+import { toast } from "react-toastify";
 
 export default function Register() {
   const {
@@ -20,12 +23,27 @@ export default function Register() {
     navigate('/login');
   };
 
-  const handleOnSubmit = useCallback((event) => {
+  const handleOnSubmit = useCallback(async (event) => {
+    const { confirm_password, ...formObject } = event;
+    delete event.confirm_password;
     console.log("event", event)
-    // event.preventDefault();
-    const formData = new FormData(event.target);
-    const data = Object.fromEntries(formData)
-    console.log("RegisterData", data)
+    console.log(formObject);
+
+    // user registeration
+    try {
+      const response = await axiosConfig.post('/register', formObject);
+      if (response.status === 201) {
+        console.log("data", response.data);
+        storeData('user', response.data.user);
+        storeData('token', response.data.token);
+        toast.success(`Welcome User ${response.data.user.email}`)
+        return navigate('/', { state: { user: response.data.user } });
+      }
+      console.log(response.data)
+      toast.error(`Register Failed ${response.data}`)
+    } catch (e) {
+      toast.error(`register fail - ${e?.response?.data?.error}`)
+    }
   }, []);
 
   return (
@@ -70,6 +88,7 @@ export default function Register() {
               required
               placeholder="******"
               aria-label="Confirm Password"
+              autoComplete="new-password"
               {...confirmPasswordValidation(register, watch)}
             />
             {errors.confirm_password && <p>{errors.confirm_password.message || "Confirm Password required"}</p>}
