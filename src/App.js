@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import ProtectedRoute from './ProtectedRoute';
 import PublicRoute from './PublicRoutes';
-
+// import consumer from './cable';
 
 // layouts
 import Main from './layouts/main';
@@ -29,7 +29,7 @@ import logoutAction from './actions/logoutAction';
 // }, {
 //   connected: () => console.log('connected'),
 //   disconnected: () => console.log('disconnected'),
-//   received: data => console.log(data),
+//   received: data => console.log("Received Data", data),
 // })
 
 

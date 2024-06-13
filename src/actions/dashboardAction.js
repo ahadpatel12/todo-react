@@ -7,8 +7,6 @@ export async function dashboardAction({ request }) {
 
   const requestData = await request.formData();
   const { _action, ...values } = Object.fromEntries(requestData);
-  console.log(_action)
-  console.log(values)
   if (_action === "createTodo") {
     try {
       const data = {
@@ -22,9 +20,23 @@ export async function dashboardAction({ request }) {
       console.log(response.data);
       return toast.success(response.data.message || "Created Todo success");
     } catch (e) {
-        return toast.error(e.response.error)
+      return toast.error(e.response.error)
     }
   }
+
+  if (_action === "deleteTodo") {
+    console.log("todo id = ", values.id)
+    try {
+      await axiosConfig.delete(`todo/${values.id}`);
+      return toast.success(`successfully deleted todo with id ${values.id}`)
+
+    } catch (e) {
+      return toast.error(e.response.error)
+
+    }
+
+  }
+
 
   return toast.success
 

@@ -3,7 +3,8 @@
 *,
 *::before,
 *::after {
-  margin: 0;
+  margin-inline: 0;
+  margin-block: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -272,6 +273,7 @@ p {
 
 /* main layout */
 .layout {
+  margin-inline: auto;
   max-width: 1440px;
   display: -ms-grid;
   display: grid;
@@ -630,7 +632,8 @@ table a {
   padding: 15px;
   margin-block: 15px;
 
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
   /* Arrange info and actions side-by-side */
   justify-content: space-between;
   /* Align items at opposite ends */
@@ -641,6 +644,7 @@ table a {
 .todo-info {
   border-radius: var(--round-md);
   /* Rounded corners for content area */
+  grid-column: span 4 / span 4;
   padding: 10px;
 }
 
@@ -655,26 +659,30 @@ table a {
 
 .todo-status {
   color: var(--accent);
-  display: grid;
   padding: 1px 10px;
   border: 1px solid;
   font-size: medium;
   border-radius: var(--round-lg);
-
+  text-align: center;
+  margin-inline: auto;
   /* Use base rounded corner value */
 
   /* Use base light color */
 }
 
 .todo-actions {
-  display: grid;
-  row-gap: 10px;
-  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
   /* align-items: center; */
+  grid-column: span 2 / span 2;
+
 }
 
 .timer {
   font-weight: bold;
+  grid-column: span 2 / span 2;
+
 }
 
 .delete-button {
@@ -684,6 +692,9 @@ table a {
   /* Use base muted color */
   cursor: pointer;
   transition: color 0.2s ease;
+  text-align: center;
+  display: block;
+  margin-inline: auto;
 }
 
 .delete-button:hover {
@@ -700,6 +711,7 @@ table a {
 }
 
 .todo-form-container .todo-timer {
+
   display: flex;
   gap: 20px;
 }
